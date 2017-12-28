@@ -11,8 +11,8 @@ class RetinaTest(tf.test.TestCase):
         self._base_config = get_base_config(Retina)
         self._model = Retina(config=self._base_config)
 
-        self.image_size = (600, 800)
-        self.image = np.random.randint(low=0, high=255, size=(1, 600, 800, 3))
+        self.image_size = (120, 200)
+        self.image = np.random.randint(low=0, high=255, size=(1, 120, 200, 3))
         self.gt_boxes = np.array([
             [10, 10, 26, 28, 1],
             [10, 10, 20, 22, 1],
@@ -21,20 +21,19 @@ class RetinaTest(tf.test.TestCase):
         ])
 
     def testRun(self):
+        """Does a test step.
+        """
         # TODO: problems with memory in Travis.
-        # image_ph = tf.placeholder(shape=[1, None, None, 3], dtype=tf.float32)
-        # gt_boxes_ph = tf.placeholder(shape=[None, 5], dtype=tf.int32)
-        # net = self._model(image_ph, gt_boxes_ph, is_training=True)
-        #
-        #
-        # with self.test_session() as sess:
-        #     sess.run(tf.global_variables_initializer())
-        #     out_dict = sess.run(net, feed_dict={
-        #         image_ph: self.image,
-        #         gt_boxes_ph: self.gt_boxes
-        #     })
-        #     print(out_dict.keys())
-        pass
+        image_ph = tf.placeholder(shape=[1, None, None, 3], dtype=tf.float32)
+        gt_boxes_ph = tf.placeholder(shape=[None, 5], dtype=tf.int32)
+        net = self._model(image_ph, gt_boxes_ph, is_training=True)
+
+        with self.test_session() as sess:
+            sess.run(tf.global_variables_initializer())
+            sess.run(net, feed_dict={
+                image_ph: self.image,
+                gt_boxes_ph: self.gt_boxes
+            })
 
 
 if __name__ == '__main__':

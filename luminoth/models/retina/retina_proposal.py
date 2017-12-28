@@ -30,7 +30,7 @@ class RetinaProposal(snt.AbstractModule):
     def _build(self, cls_prob, bbox_preds, all_anchors):
         """
         Args:
-            cls_prob: (num_proposals,)
+            cls_prob: (num_proposals, num_classes + 1)
             bbox_preds: (num_proposals, 4)
             all_anchors: (num_proposals, 4)
 

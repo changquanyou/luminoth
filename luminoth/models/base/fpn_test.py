@@ -53,7 +53,7 @@ class FPNTest(tf.test.TestCase):
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
 
-            random_image = np.random.rand(1, 600, 800, 3)
+            random_image = np.random.rand(1, 140, 210, 3)
             fpn_levels = sess.run(net, feed_dict={
                 image_ph: random_image
             })
@@ -110,7 +110,7 @@ class FPNTest(tf.test.TestCase):
         self._test_output_shapes(training=True, config=self._config_vgg)
         self._test_output_shapes(training=False, config=self._config_vgg)
 
-    def testOutputShapesTraining(self):
+    def testOutputShapesResnet(self):
         self._test_output_shapes(training=True, config=self._config_resnet)
         self._test_output_shapes(training=False, config=self._config_resnet)
 
